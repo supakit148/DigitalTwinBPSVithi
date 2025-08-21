@@ -212,6 +212,85 @@ margin-bottom: 5px;
           </div>
       </div>
 
+      <div class="card">
+        <h3>
+          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
+            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
+          </svg> CCTV Security<br></br>
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Offline</strong>
+              <div id="infoBox6">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Intruder</strong>
+              <div id="infoBox7">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Online</strong>
+              <div id="infoBox8">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Total</strong>
+              <div id="infoBox9">0</div>
+            </div>
+          </div>
+      </div>
+      
+
+      <div class="card">
+        <h3>
+          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
+            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
+          </svg> CCTV Security<br></br>
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Offline</strong>
+              <div id="infoBox10">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Intruder</strong>
+              <div id="infoBox11">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Online</strong>
+              <div id="infoBox12">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Total</strong>
+              <div id="infoBox13">0</div>
+            </div>
+          </div>
+      </div>
+      
+
+      <div class="card">
+        <h3>
+          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
+            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
+          </svg> CCTV Security<br></br>
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Offline</strong>
+              <div id="infoBox14">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Intruder</strong>
+              <div id="infoBox15">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Online</strong>
+              <div id="infoBox16">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Total</strong>
+              <div id="infoBox17">0</div>
+            </div>
+          </div>
+      </div>
 </div>
 </div>
 </div>
@@ -237,16 +316,47 @@ const row = rows[i].c;
 if (row[0] && row[0].v === cameraId) {
 // กล้อง 1
 const img1 = row[2]?.v || 'ไม่พบข้อมูล';
+
 const text1 = row[3]?.v || 'ไม่พบข้อมูล';
 const text2 = row[4]?.v || 'ไม่พบข้อมูล';
 const text3 = row[5]?.v || 'ไม่พบข้อมูล';
 const text4 = row[6]?.v || 'ไม่พบข้อมูล';
+
+const text5 = row[7]?.v || 'ไม่พบข้อมูล';
+const text6 = row[8]?.v || 'ไม่พบข้อมูล';
+const text7 = row[9]?.v || 'ไม่พบข้อมูล';
+const text8 = row[10]?.v || 'ไม่พบข้อมูล';
+
+const text9 = row[11]?.v || 'ไม่พบข้อมูล';
+const text10 = row[12]?.v || 'ไม่พบข้อมูล';
+const text11 = row[13]?.v || 'ไม่พบข้อมูล';
+const text12 = row[14]?.v || 'ไม่พบข้อมูล';
+
+const text13 = row[15]?.v || 'ไม่พบข้อมูล';
+const text14 = row[16]?.v || 'ไม่พบข้อมูล';
+const text15 = row[17]?.v || 'ไม่พบข้อมูล';
+const text16 = row[18]?.v || 'ไม่พบข้อมูล';
 
 document.getElementById("infoBox").innerHTML = `<img src="${img1}" alt="ภาพจากกล้อง">`;
 document.getElementById("infoBox2").innerText = text1;
 document.getElementById("infoBox3").innerText = text2;
 document.getElementById("infoBox4").innerText = text3;
 document.getElementById("infoBox5").innerText = text4;
+
+document.getElementById("infoBox6").innerText = text5;
+document.getElementById("infoBox7").innerText = text6;
+document.getElementById("infoBox8").innerText = text7;
+document.getElementById("infoBox9").innerText = text8;
+
+document.getElementById("infoBox10").innerText = text9;
+document.getElementById("infoBox11").innerText = text10;
+document.getElementById("infoBox12").innerText = text11;
+document.getElementById("infoBox13").innerText = text12;
+
+document.getElementById("infoBox14").innerText = text13;
+document.getElementById("infoBox15").innerText = text14;
+document.getElementById("infoBox16").innerText = text15;
+document.getElementById("infoBox17").innerText = text16;
 
 break;
 }
