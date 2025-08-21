@@ -1,97 +1,174 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Smart City Dashboard</title>
-<script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<style>
-* {
-box-sizing: border-box;
-}
+  <meta charset="UTF-8">
+  <title>Sci-Fi City Dashboard</title>
+  <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --panel: rgba(10, 10, 25, 0.5);
+      --glow: #00ffffaa;
+      --blur: blur(20px);
+      --radius: 14px;
+      --text: #ffffff;
+      --neon: 0 0 8px #0ff, 0 0 16px #0ff;
+    }
 
-html, body {
-margin: 0;
-padding: 0;
-height: 100%;
-font-family: 'Orbitron', sans-serif;
-background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-color: #00ffff;
-overflow: hidden;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Orbitron', sans-serif;
+      font-variant-numeric: tabular-nums; /* ✅ เพิ่มบรรทัดนี้ */
+      color: var(--text);
+    }
 
-.container {
-display: flex;
-height: 100vh;
-}
+    .layout {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
 
-.left-pane {
-flex: 7.5;
-position: relative;
-background-color: #000;
-border-right: 2px solid rgba(0, 255, 255, 0.2);
-box-shadow: inset 0 0 30px #00eaff55;
-}
+    .background iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
 
-.right-pane {
-flex: 2;
-padding: 18px;
-background: radial-gradient(circle, #0a1e2f, #06121f);
-overflow-y: auto;
-color: #c5faff;
-}
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 64px;
+      background: linear-gradient(to right, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.4));
+      backdrop-filter: var(--blur);
+      z-index: 3;
+      border-bottom: 1px solid var(--glow);
+      box-shadow: inset 0 -1px 0 var(--glow);
+    }
 
-#skfb-frame {
-width: 100%;
-height: 100%;
-border: none;
-filter: drop-shadow(0 0 20px #00eaff);
-}
+    .top-left {
+      position: absolute;
+      left: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-.camera-section {
-margin-bottom: 12px;
-padding-bottom: 10px;
-border-bottom: 1px dashed rgba(0, 255, 255, 0.1);
-}
+    .top-right {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-.camera-title {
-font-size: 18px;
-font-weight: bold;
-color: #00ffff;
-margin-bottom: 5px;
-border-left: 4px solid #00eaff;
-padding-left: 8px;
-}
+    .dashboard-title {
+      font-size: 35px;
+      font-weight: 600;
+      color: var(--text);
+      text-shadow: 0 0 6px #0ff;
+      white-space: nowrap;
+    }
 
-.camera-image img {
-display: block; 
-margin-left: auto; /
-margin-right: auto;
-width: 100%;
-height: auto;
-border-radius: 8px;
-border: 1px solid #00eaff;
-box-shadow: 0 0 12px #00eaff66;
-margin-bottom: 8px;
-transition: transform 0.3s ease;
-}
+    .top-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
 
-.camera-image img:hover {
-transform: scale(1.03);
-}
+    .ios-clock {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 4;
+    }
 
-.camera-detail {
-font-size: 14px;
-background-color: rgba(0, 255, 255, 0.05);
-border-left: 3px solid #00ffff;
-padding: 10px;
-border-radius: 5px;
-line-height: 1.4;
-box-shadow: 0 0 8px #00c8ff44;
-margin-bottom: 5px;
-}
+    .ios-clock .date {
+      font-size: 35px;
+      color: #ccc;
+      font-weight: 300;
+      text-shadow: 0 0 8px rgba(255,255,255,0.15);
+    }
 
- .card {
+    .ios-clock .clock {
+      font-size: 70px;
+      font-weight: 200;
+      color: #fff;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 18px rgba(255,255,255,0.25);
+    }
+
+    .ios-clock .clock span {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .menu-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .top button {
+      background: transparent;
+      border: 1px solid var(--glow);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      text-shadow: var(--neon);
+      transition: all 0.3s ease;
+    }
+
+    .top button:hover {
+      background: var(--glow);
+      color: #000;
+      box-shadow: 0 0 18px var(--glow);
+    }
+
+    .menu-buttons button.highlight {
+      background: var(--glow);
+      color: #000;
+      box-shadow: 0 0 18px var(--glow);
+    }
+
+
+    .left, .right {
+      position: absolute;
+      top: 64px;
+      width: 320px;
+      height: calc(100vh - 64px);
+      /* ทำให้โปร่งใส/ไม่มีพื้นและเงาขอบ */
+      background: transparent !important;
+      backdrop-filter: none !important;
+      border: none !important;
+      box-shadow: none !important;
+
+      padding: 20px;
+      z-index: 2;
+      overflow-y: auto;
+    }
+
+    /* ตำแหน่งซ้าย/ขวา */
+    .left { left: 0; }
+    .right { right: 60px; }
+
+
+    .card {
       background: rgba(20, 20, 20, 0.6); /* พื้นเข้มโปร่งใส */
       backdrop-filter: blur(12px);       /* เบลอพื้นหลัง มัวๆ */
       -webkit-backdrop-filter: blur(12px);
@@ -127,6 +204,46 @@ margin-bottom: 5px;
     h2, h3 {
       text-shadow: var(--neon);
       font-size: 18px;
+    }
+
+    ul {
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    ul li::before {
+      content: '\25B8';
+      color: var(--glow);
+      margin-right: 6px;
+    }
+
+    .audio-bars-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: transparent;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .audio-bars-container .bars {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(calc(-50% + 7px)) rotate(180deg);
+      display: flex;
+      gap: 3px;
+    }
+
+    .audio-bars-container .bar {
+      width: 4px;
+      height: 10px;
+      background: #00ffff;
+      opacity: 0.5;
+      border-radius: 2px;
+      transition: height 0.4s ease;
     }
 
     .electrical-grid {
@@ -172,221 +289,910 @@ margin-bottom: 5px;
       font-variant-numeric: tabular-nums;
     }
 
-</style>
+    @media (max-width: 600px) {
+      .electrical-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Fade-in/out glass modal */
+    .glass-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .glass-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .glass-content {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 24px;
+      border-radius: 16px;
+      width: 90vw;
+      max-width: 1280px;
+      height: 90vh;
+      box-shadow: 0 0 30px #0ff;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #0ff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+
+    @keyframes fadeIn {
+      0% {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .glass-modal {
+      position: fixed;
+      top: 70px;
+      left: 51.5%;
+      transform: translateX(-50%);
+      width: 90vw;                /* กว้างเท่าเดิม */
+      max-width: 1280px;
+      height: 82vh;               /* ✅ เพิ่มความสูงมากขึ้น */
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      box-shadow: 0 0 25px #00ffffaa;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      overflow: hidden;
+    }
+
+    .glass-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .glass-modal .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #0ff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .scrolling-wrapper {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .scrolling-content {
+      position: absolute;
+      width: 100%;
+      animation: scroll-up-down 120s ease-in-out infinite;
+    }
+
+    @keyframes scroll-up-down {
+      0%   { transform: translateY(0); }
+      25%  { transform: translateY(-400px); }
+      50%  { transform: translateY(0); }
+      75%  { transform: translateY(-400px); }
+      100% { transform: translateY(0); }
+    }
+
+
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-<div class="left-pane">
-<iframe id="skfb-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
-</div>
+  <div class="layout">
+    <div class="background">
+      <iframe id="skfb-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+    </div>
 
-<div class="right-pane">
-<div class="camera-section">
-    
-<div class="camera-title" id="cameraNameBox">📷 รอกด Annotation กล้อง...</div>
-<div class="camera-image" id="infoBox">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
+    <div class="top">
+      <div class="top-left">
+        <div class="dashboard-title" id="animatedTitle"></div>
+      </div>
+      <div class="top-right">
+        <a href="https://postimg.cc/21pssXr5" target="_blank">
+          <img src="https://i.postimg.cc/Z50Jy1Q6/BPS-LOGO-1.gif" alt="BPS Logo" style="width: 85px; height: auto;">
+        </a>
+      </div>
+      <div class="top-center">
+        <div class="menu-buttons">
+          <button onclick="runDemo()">▶ Auto View</button>
+          <button onclick="openLogistics('logisticsCenterModal')">Logistics</button>
+          <button onclick="openLogistics('CCTVSecurity')">CCTV Security</button>
+          <button onclick="openLogistics('CCTV-WH')">CCTV-WH</button>
+          <button onclick="openLogistics('CCTV-UDS')">CCTV-UDS</button>
+          <button onclick="openLogistics('CCTV-HQ')">CCTV-HQ</button>
+          <button onclick="openLogistics('ElectricalSystem')">Electrical System</button>
+          <button onclick="openLogistics('WaterSystem')">Water System</button>
+          <button onclick="openLogistics('FreshAir')">Fresh Air</button>
+          <button onclick="openLogistics('SolarCell')">Solar Cell</button>
+          <button onclick="openLogistics('FiberOptic')">Fiber Optic</button>
+        </div>
 
+      <!-- ใต้ .top-center -->
+      <div class="ios-clock">
+        <div class="date" id="date">--</div>
+        <div class="clock"><span id="clock">--:--</span></div>
+      </div>
+
+      </div>
+    </div>
+
+    <div id="miniPanel" style="
+      display: none;
+      position: absolute;
+      top: 120px; /* ใต้เวลา */
+      left: 320px; /* ชิดหลัง block ซ้าย (ความกว้าง 320px) */
+      right: 320px; /* ไม่ชน block ขวา */
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 1px solid #0ff;
+      border-radius: 14px;
+      box-shadow: 0 0 20px #0ff;
+      padding: 24px;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      color: white;
+      font-family: sans-serif;
+    ">
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="margin: 0; color: #0ff;">Logistics</h3>
+        <button onclick="toggleMiniPanel()" style="
+          background: #0ff;
+          color: #000;
+          border: none;
+          padding: 6px 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: bold;
+        ">Close</button>
+      </div>
+      <iframe src="https://lookerstudio.google.com/embed/reporting/2a55735c-1218-4170-8696-db6f06ad0725/page/p_pmwprespbd"
+        style="width:100%; height:700px; border:none; margin-top:14px; border-radius:10px;"></iframe>
+    </div>
+
+
+    <div class="left">
+      <h3 >Digital Building</h3>
+      <h3 id="cameraNameBox">- Floor</h3>
       <div class="card">
         <h3>
           <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
             <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
-          </svg> CCTV Security<br></br>
+          </svg> CCTV Security
         </h3>
           <div class="electrical-grid">
             <div class="metric">
               <strong style="color: #0ff;">Offline</strong>
-              <div id="infoBox2">0</div>
+              <div id="infoBox2">-</div>
             </div>
             <div class="metric">
               <strong style="color: #0ff;">Intruder</strong>
-              <div id="infoBox3">0</div>
+              <div id="infoBox3">-</div>
             </div>
             <div class="metric">
               <strong style="color: #0ff;">Online</strong>
-              <div id="infoBox4">0</div>
+              <div id="infoBox4">-</div>
             </div>
             <div class="metric">
               <strong style="color: #0ff;">Total</strong>
-              <div id="infoBox5">0</div>
+              <div id="infoBox5">-</div>
             </div>
           </div>
       </div>
-
       <div class="card">
         <h3>
-          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
-            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
-          </svg> CCTV Security<br></br>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 13 10 13 2" />
+          </svg>
+           Electrical System
         </h3>
           <div class="electrical-grid">
             <div class="metric">
-              <strong style="color: #0ff;">Offline</strong>
-              <div id="infoBox6">0</div>
+              <strong style="color: #0ff;">Voltage</strong>
+              <div id="infoBox6">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Intruder</strong>
-              <div id="infoBox7">0</div>
+              <strong style="color: #0ff;">Current</strong>
+              <div id="infoBox7">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Online</strong>
-              <div id="infoBox8">0</div>
+              <strong style="color: #0ff;">Power</strong>
+              <div id="infoBox8">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Total</strong>
-              <div id="infoBox9">0</div>
+              <strong style="color: #0ff;">Frequency</strong>
+              <div id="infoBox9">-</div>
             </div>
           </div>
       </div>
-      
+      <div class="card">
+        <h3> 
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C12 2 5 9 5 14a7 7 0 0014 0c0-5-7-12-7-12z"/>
+          </svg>
+          Water System
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Flow Rate</strong>
+              <div id="infoBox10">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Water Usage</strong>
+              <div id="infoBox11">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Duration (Days)</strong>
+              <div id="infoBox12">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Duration (Months)</strong>
+              <div id="infoBox13">-</div>
+            </div>
+          </div>
+      </div>
+    </div>
 
+    <div class="right">
+    <h2>Environment System</h2>
+    <div class="scrolling-wrapper">
+      <div class="scrolling-content">
       <div class="card">
         <h3>
-          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
-            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
-          </svg> CCTV Security<br></br>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12h20M2 6h16M2 18h12"/>
+          </svg>
+          Fresh Air
         </h3>
           <div class="electrical-grid">
             <div class="metric">
-              <strong style="color: #0ff;">Offline</strong>
-              <div id="infoBox10">0</div>
+              <strong style="color: #0ff;">Temp</strong>
+              <div id="infoBox14">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Intruder</strong>
-              <div id="infoBox11">0</div>
+              <strong style="color: #0ff;">Humidity</strong>
+              <div id="infoBox15">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Online</strong>
-              <div id="infoBox12">0</div>
+              <strong style="color: #0ff;">PM2d5</strong>
+              <div id="infoBox16">-</div>
             </div>
             <div class="metric">
-              <strong style="color: #0ff;">Total</strong>
-              <div id="infoBox13">0</div>
+              <strong style="color: #0ff;">PM10</strong>
+              <div id="infoBox17">-</div>
+            </div>
+          </div>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">TVOC</strong>
+              <div id="infoBox18">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">CH2O</strong>
+              <div id="infoBox19">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">CO2</strong>
+              <div id="infoBox20">-</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">N2</strong>
+              <div id="infoBox21">-</div>
             </div>
           </div>
       </div>
-      
-
       <div class="card">
         <h3>
-          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
-            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
-          </svg> CCTV Security<br></br>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+          </svg> Solar Cell
         </h3>
           <div class="electrical-grid">
             <div class="metric">
-              <strong style="color: #0ff;">Offline</strong>
-              <div id="infoBox14">0</div>
-            </div>
-            <div class="metric">
-              <strong style="color: #0ff;">Intruder</strong>
-              <div id="infoBox15">0</div>
-            </div>
-            <div class="metric">
               <strong style="color: #0ff;">Online</strong>
-              <div id="infoBox16">0</div>
+              <div>77<br>Sites</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Offline</strong>
+              <div>21<br>Sites</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Fault</strong>
+              <div>7<br>Sites</div>
             </div>
             <div class="metric">
               <strong style="color: #0ff;">Total</strong>
-              <div id="infoBox17">0</div>
+              <div>105<br>Sites</div>
             </div>
           </div>
       </div>
-</div>
-</div>
-</div>
+      <div class="card">
+        <h3>
+          <svg width="24" height="24" viewBox="0 0 640 512" fill="none" stroke="#0ff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+            <path d="M624 352h-16V256c0-26.5-21.5-48-48-48h-64l-64-96H272c-26.5 0-48 21.5-48 48v192H80c-26.5 0-48 21.5-48 48s21.5 48 48 48h32c0 35.3 28.7 64 64 64s64-28.7 64-64h160c0 35.3 28.7 64 64 64s64-28.7 64-64h16c26.5 0 48-21.5 48-48s-21.5-48-48-48zM400 128h49.6l38.4 64H400V128zM176 448c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm288 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm96-96H80v-16h480v16z"/>
+          </svg> Logistics
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Value</strong>
+              <div>2.0<br>Million</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Waiting</strong>
+              <div>40 Orders</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Sent</strong>
+              <div>60 Orders</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Total</strong>
+              <div>100 Orders</div>
+            </div>
+          </div>
+      </div>
+      <br>
+        </div>
+    </div>
+    </div>
+  </div>
 
-<script>
-const iframe = document.getElementById('skfb-frame');
-const client = new Sketchfab(iframe);
-let CameraName = '';
+  <div id="logisticsCenterModal" class="glass-modal">
+    <iframe src="https://lookerstudio.google.com/embed/reporting/2a55735c-1218-4170-8696-db6f06ad0725/page/p_pmwprespbd"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('logisticsCenterModal')">❌</button>
+  </div>
 
-function getTextFromGoogleSheet(cameraId) {
-const sheetID = "1pG8ldAgtHsOzlVxjITuBp2XCS77Sdk15fvmR-YU-MDg";
-const sheetName = "Data";
-const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+  <div id="CCTVSecurity" class="glass-modal">
+    <iframe src="https://bpstech.online/d/e7cd0ba2-b2c8-4163-a95e-b6d540feb2f3/cctv-5-2-only-granfana?orgId=1&refresh=5s&from=1752598800000&to=1752632865506"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('CCTVSecurity')">❌</button>
+  </div>
 
-fetch(url)
-.then(res => res.text())
-.then(data => {
-const jsonData = JSON.parse(data.substr(47).slice(0, -2));
-const rows = jsonData.table.rows;
+  <div id="CCTV-WH" class="glass-modal">
+    <iframe src="https://bpstech.online/d/cbdd90cc-8519-47d1-bdd4-271ea36b2cce/building-automation-system-bas-cctv-wh?orgId=1&from=1735664400000&to=1767200399999"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('CCTV-WH')">❌</button>
+  </div>
 
-for (let i = 0; i < rows.length; i++) {
-const row = rows[i].c;
-if (row[0] && row[0].v === cameraId) {
-// กล้อง 1
-const img1 = row[2]?.v || 'ไม่พบข้อมูล';
+  <div id="CCTV-UDS" class="glass-modal">
+    <iframe src="https://bpstech.online/d/b4678510-9285-4a64-b475-9b1f1640b61d/building-automation-system-bas-cctv-uds-rev1?orgId=1&from=1735664400000&to=1767200399999"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('CCTV-UDS')">❌</button>
+  </div>
 
-const text1 = row[3]?.v || 'ไม่พบข้อมูล';
-const text2 = row[4]?.v || 'ไม่พบข้อมูล';
-const text3 = row[5]?.v || 'ไม่พบข้อมูล';
-const text4 = row[6]?.v || 'ไม่พบข้อมูล';
+  <div id="CCTV-HQ" class="glass-modal">
+    <iframe src="https://bpstech.online/d/c5e69a05-265d-489a-a31a-3bcc1730b447/building-automation-system-bas-cctv-hq-overall?orgId=1&from=1735664400000&to=1767200399999"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('CCTV-HQ')">❌</button>
+  </div>
 
-const text5 = row[7]?.v || 'ไม่พบข้อมูล';
-const text6 = row[8]?.v || 'ไม่พบข้อมูล';
-const text7 = row[9]?.v || 'ไม่พบข้อมูล';
-const text8 = row[10]?.v || 'ไม่พบข้อมูล';
+  <div id="ElectricalSystem" class="glass-modal">
+    <iframe src="https://bpstech.online/d/ad6df34b-7a83-4795-9f4f-fcb54b5024cf/evoair-rev1?orgId=1&from=1752549386683&to=1752552986683"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('ElectricalSystem')">❌</button>
+  </div>
 
-const text9 = row[11]?.v || 'ไม่พบข้อมูล';
-const text10 = row[12]?.v || 'ไม่พบข้อมูล';
-const text11 = row[13]?.v || 'ไม่พบข้อมูล';
-const text12 = row[14]?.v || 'ไม่พบข้อมูล';
+  <div id="WaterSystem" class="glass-modal">
+    <iframe src="https://bpstech.online/d/e398f637-3c20-4529-9ff4-517e8bf2b7d5/2ea5407a-6f7f-5825-8d08-da9c3d368296?orgId=1&refresh=5s&from=1735664400000&to=1767200399999"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('WaterSystem')">❌</button>
+  </div>
 
-const text13 = row[15]?.v || 'ไม่พบข้อมูล';
-const text14 = row[16]?.v || 'ไม่พบข้อมูล';
-const text15 = row[17]?.v || 'ไม่พบข้อมูล';
-const text16 = row[18]?.v || 'ไม่พบข้อมูล';
+  <div id="FreshAir" class="glass-modal">
+    <iframe src="https://bpstech.online/d/e292748b-da2c-4d29-9990-0262a6cd519e/air-q-demo-rev0?orgId=1&refresh=5s&from=1752551302736&to=1752553102736"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('FreshAir')">❌</button>
+  </div>
 
-document.getElementById("infoBox").innerHTML = `<img src="${img1}" alt="ภาพจากกล้อง">`;
-document.getElementById("infoBox2").innerText = text1;
-document.getElementById("infoBox3").innerText = text2;
-document.getElementById("infoBox4").innerText = text3;
-document.getElementById("infoBox5").innerText = text4;
+  <div id="SolarCell" class="glass-modal">
+    <iframe src="https://lh3.googleusercontent.com/d/1VP3-U0l0QxFb8b-R3puq7EBJQcCKAITs"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('SolarCell')">❌</button>
+  </div>
 
-document.getElementById("infoBox6").innerText = text5;
-document.getElementById("infoBox7").innerText = text6;
-document.getElementById("infoBox8").innerText = text7;
-document.getElementById("infoBox9").innerText = text8;
+  <div id="FiberOptic" class="glass-modal">
+    <iframe src="https://bpstech.online/d/fe15b960-5bda-4051-b87b-2bbec6d29461/project-fiber-check-material-rev1?orgId=1&from=1753376400000&to=1753416393714"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('FiberOptic')">❌</button>
+  </div>
 
-document.getElementById("infoBox10").innerText = text9;
-document.getElementById("infoBox11").innerText = text10;
-document.getElementById("infoBox12").innerText = text11;
-document.getElementById("infoBox13").innerText = text12;
+  <!-- 🔊 Audio Visualizer -->
+  <div class="audio-bars-container">
+    <div class="bars" id="audioBars"></div>
+  </div>
 
-document.getElementById("infoBox14").innerText = text13;
-document.getElementById("infoBox15").innerText = text14;
-document.getElementById("infoBox16").innerText = text15;
-document.getElementById("infoBox17").innerText = text16;
+  <script>
+    // Visualizer
+    const barCount = 90;
+    const container = document.getElementById('audioBars');
+    for (let i = 0; i < barCount; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      container.appendChild(bar);
+    }
+    setInterval(() => {
+      document.querySelectorAll('.audio-bars-container .bar').forEach(bar => {
+        const height = Math.floor(Math.random() * 60) + 20;
+        bar.style.height = `${height}px`;
+      });
+    }, 250);
 
-break;
-}
-}
-})
-.catch(err => console.error("❌ Error loading Google Sheet:", err));
-}
+    // Title Animation
+    const titleElement = document.getElementById('animatedTitle');
+    const fullText = 'Digital Twin';
+    const codeChars = '█▓▒░<>#@*%&?!';
+    let currentIndex = 0;
+    let animationStep = 0;
+    let displayText = '';
+    let isDeleting = false;
 
-client.init('7adcd28260174cf58dd2672e1e189426', {
-success: function (api) {
-api.start();
-api.addEventListener('viewerready', function () {
-api.addEventListener('annotationFocus', function (index) {
-api.getAnnotation(index, function (err, annotation) {
-if (!err && annotation?.name) {
-CameraName = annotation.name;
-document.getElementById('cameraNameBox').innerText = 'ชั้น ' + CameraName;
-getTextFromGoogleSheet(CameraName);
-}
-});
-});
-});
-},
-error: function () {
-console.error('❌ โหลด Sketchfab API ไม่ได้');
-}
-});
-</script>
+    function scrambleText(text, length) {
+      let scrambled = '';
+      for (let i = 0; i < length; i++) {
+        scrambled += codeChars.charAt(Math.floor(Math.random() * codeChars.length));
+      }
+      return scrambled;
+    }
+
+    function animateTitle() {
+      if (!isDeleting) {
+        if (currentIndex < fullText.length) {
+          displayText = fullText.substring(0, currentIndex + 1);
+          const scrambled = scrambleText('', fullText.length - currentIndex - 1);
+          titleElement.innerText = displayText + scrambled;
+          currentIndex++;
+        } else {
+          if (animationStep < 15) {
+            animationStep++;
+          } else {
+            isDeleting = true;
+            animationStep = 0;
+          }
+        }
+      } else {
+        if (currentIndex > 0) {
+          currentIndex--;
+          displayText = fullText.substring(0, currentIndex);
+          const scrambled = scrambleText('', fullText.length - currentIndex);
+          titleElement.innerText = displayText + scrambled;
+        } else {
+          isDeleting = false;
+        }
+      }
+      setTimeout(animateTitle, 80);
+    }
+
+    animateTitle();
+  </script>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+      const options = { weekday: 'long', month: 'long', day: 'numeric' };
+      const dateString = now.toLocaleDateString(undefined, options);
+      document.getElementById('date').textContent = dateString;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+
+  <script>
+  fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSCb61sTIyqhqss13xwnWnANho_EXFOIJK_oa3Ig1a6audH72wrWCwGaJwv8XMuaUxamCldtrDolHVr/pub?gid=0&single=true&output=csv")
+    .then(response => response.text())
+    .then(csv => {
+      const rows = csv.trim().split("\n").map(r => r.split(","));
+      let html = '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size:16px; width:100%;">';
+
+      // Header
+      html += "<thead><tr>";
+      rows[0].forEach(col => html += `<th>${col}</th>`);
+      html += "</tr></thead><tbody>";
+
+      // Data
+      for (let i = 1; i < rows.length; i++) {
+        html += "<tr>";
+        rows[i].forEach(cell => {
+          let color = "";
+          if (cell.toLowerCase().includes("offline")) {
+            color = "color: white;";
+          } else if (cell.toLowerCase().includes("online")) {
+            color = "color: white;";
+          }
+          html += `<td style="${color}">${cell}</td>`;
+        });
+        html += "</tr>";
+      }
+
+      html += "</tbody></table>";
+      document.getElementById("cctv-status-table").innerHTML = html;
+    });
+  </script>
+
+  <script>
+  fetch("https://docs.google.com/spreadsheets/d/1723prYCtb3ySIGvHYZDkekWP97k8IiKd5-pm9php-JE/export?format=csv&gid=456184011")
+    .then(response => response.text())
+    .then(csv => {
+      const rows = csv.trim().split("\n").map(r => r.split(","));
+      let html = '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size:16px; width:100%;">';
+
+      // Header
+      html += "<thead><tr>";
+      rows[0].forEach(col => html += `<th>${col}</th>`);
+      html += "</tr></thead><tbody>";
+
+      // Data
+      for (let i = 1; i < rows.length; i++) {
+        html += "<tr>";
+        rows[i].forEach(cell => {
+          // ตรวจสอบถ้ามีคำว่า 'Offline' หรือ 'Online'
+          let color = "";
+          if (cell.toLowerCase().includes("offline")) {
+            color = "color: white;";
+          } else if (cell.toLowerCase().includes("online")) {
+            color = "color: white;";
+          }
+          html += `<td style="${color}">${cell}</td>`;
+        });
+        html += "</tr>";
+      }
+
+      html += "</tbody></table>";
+      document.getElementById("link-to-grafana").innerHTML = html;
+    });
+  </script>
+
+  <script>
+  fetch("https://docs.google.com/spreadsheets/d/1Bbr3N3UjtIMpI1dlIwKBLOYn-_avAWDkgWPln4XxfdQ/export?format=csv&gid=1585725188")
+    .then(response => response.text())
+    .then(csv => {
+      const rows = csv.trim().split("\n").map(r => r.split(","));
+      let html = '<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; font-size:16px; width:100%;">';
+
+      // สร้างส่วนหัวตาราง
+      html += "<thead><tr>";
+      rows[0].forEach(col => html += `<th>${col}</th>`);
+      html += "</tr></thead><tbody>";
+
+      // สร้างข้อมูลในแต่ละแถว
+      for (let i = 1; i < rows.length; i++) {
+        html += "<tr>";
+        rows[i].forEach(cell => {
+          let style = "";
+          const lower = cell.toLowerCase();
+          if (lower.includes("offline")) {
+            style = "color:white; font-weight:bold;";
+          } else if (lower.includes("online")) {
+            style = "color:white; font-weight:bold;";
+          }
+          html += `<td style="${style}">${cell}</td>`;
+        });
+        html += "</tr>";
+      }
+
+      html += "</tbody></table>";
+      document.getElementById("logistics-table").innerHTML = html;
+    });
+  </script>
+
+  <script>
+  function toggleMiniPanel() {
+    const panel = document.getElementById('miniPanel');
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  }
+  </script>
+
+  <script>
+  function openLogistics(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.add("active");
+  }
+
+  function closeLogistics(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove("active");
+  } 
+  </script>
+
+  <script>
+  function closeAllModals() {
+    const modals = [
+      'logisticsCenterModal',
+      'CCTVSecurity',
+      'CCTV-WH',
+      'CCTV-UDS',
+      'CCTV-HQ',
+      'ElectricalSystem',
+      'WaterSystem',
+      'FreshAir',
+      'SolarCell',
+      'FiberOptic'
+    ];
+    modals.forEach(id => document.getElementById(id).classList.remove("active"));
+  }
+
+  function removeButtonHighlights() {
+    document.querySelectorAll(".menu-buttons button").forEach(btn => {
+      btn.classList.remove("highlight");
+    });
+  }
+  </script>
+
+  <script>
+  let autoViewRunning = false;
+  let autoViewTimer = null;
+  let autoViewButton = null;
+  let index = 0;
+
+  const modals = [
+    'logisticsCenterModal',
+    'CCTVSecurity',
+    'CCTV-WH',
+    'CCTV-UDS',
+    'CCTV-HQ',
+    'ElectricalSystem',
+    'WaterSystem',
+    'FreshAir',
+    'SolarCell',
+    'FiberOptic'
+  ];
+
+  const buttonMap = {
+    'logisticsCenterModal': 'Logistics',
+    'CCTVSecurity': 'CCTV Security',
+    'CCTV-WH': 'CCTV-WH',
+    'CCTV-UDS': 'CCTV-UDS',
+    'CCTV-HQ': 'CCTV-HQ',
+    'ElectricalSystem': 'Electrical System',
+    'WaterSystem': 'Water System',
+    'FreshAir': 'Fresh Air',
+    'SolarCell': 'Solar Cell',
+    'FiberOptic': 'Fiber Optic'
+  };
+
+  function closeAllModals() {
+    modals.forEach(id => document.getElementById(id).classList.remove("active"));
+  }
+
+  function removeButtonHighlights() {
+    document.querySelectorAll(".menu-buttons button").forEach(btn => {
+      btn.classList.remove("highlight");
+    });
+  }
+
+  function openNextModal() {
+    if (!autoViewRunning) return;
+
+    closeAllModals();
+    removeButtonHighlights();
+
+    if (index >= modals.length) index = 0;
+
+    const id = modals[index];
+    const label = buttonMap[id];
+    const button = [...document.querySelectorAll(".menu-buttons button")]
+                    .find(b => b.innerText.includes(label));
+    if (button) {
+      button.classList.add("highlight");
+    }
+
+    document.getElementById(id).classList.add("active");
+
+    let delay = 6000; // default 5 วิ
+
+    if (id === 'CCTV-WH') {
+      delay = 6000;
+    }
+
+    if (id === 'CCTV-UDS') {
+      delay = 6000;
+    }
+
+    if (id === 'CCTV-HQ') {
+      delay = 6000;
+    }
+
+    if (id === 'FiberOptic') {
+      delay = 6000; // แสดง Solar Cell นาน 10 วิ
+      setTimeout(() => {
+        document.getElementById(id).classList.remove("active");
+        removeButtonHighlights();
+      }, 6000); // ปิด Solar หลัง 10 วิ
+      delay += 180000; // รอเพิ่มอีก 10 วิ รวม 20 วิ
+    }
+
+    index++;
+    autoViewTimer = setTimeout(openNextModal, delay);
+  }
+
+  function runDemo() {
+    if (!autoViewButton) {
+      autoViewButton = document.querySelector(".menu-buttons button");
+    }
+
+    if (!autoViewRunning) {
+      autoViewRunning = true;
+      autoViewButton.classList.add("highlight");
+      autoViewButton.innerText = "⏹ Stop";
+      index = 0;
+      openNextModal();
+    } else {
+      autoViewRunning = false;
+      clearTimeout(autoViewTimer);
+      closeAllModals();
+      removeButtonHighlights();
+      autoViewButton.classList.remove("highlight");
+      autoViewButton.innerText = "▶ Auto View";
+    }
+  }
+  </script>
+
+  <script>
+    function setBackgroundByTime() {
+      const hour = new Date().getHours();
+      const iframe = document.getElementById("background-frame");
+
+      let src = "";
+      if (hour >= 0 && hour < 8) {
+        src = "https://sketchfab.com/models/65a75a890cfe4b63b1e3c7e41e524e36/embed?autostart=1&annotations_visible=0&annotation_cycle=5";
+      } else if (hour >= 8 && hour < 16) {
+        src = "https://sketchfab.com/models/fd7092ffbe88421dbbf9e19dd36894e9/embed?autostart=1&annotations_visible=0&annotation_cycle=5";
+      } else {
+        src = "https://sketchfab.com/models/9fe00d65cf0c4dec92cf1c6fb7be9e02/embed?autostart=1&annotations_visible=0&annotation_cycle=5";
+      }
+
+      iframe.src = src;
+    }
+
+    setBackgroundByTime();
+  </script>
+
+  <script>
+    const iframe = document.getElementById('skfb-frame');
+    const client = new Sketchfab(iframe);
+
+    function getTextFromGoogleSheet(cameraId) {
+      const sheetID = "1pG8ldAgtHsOzlVxjITuBp2XCS77Sdk15fvmR-YU-MDg";
+      const sheetName = "Data";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+
+      fetch(url)
+        .then(res => res.text())
+        .then(data => {
+          const jsonData = JSON.parse(data.substr(47).slice(0, -2));
+          const rows = jsonData.table.rows;
+
+          for (let i = 0; i < rows.length; i++) {
+            const row = rows[i].c;
+            if (row[0] && row[0].v === cameraId) {
+                
+              const text1 = row[3]?.v || 'ไม่พบข้อมูล';
+              const text2 = row[4]?.v || 'ไม่พบข้อมูล';
+              const text3 = row[5]?.v || 'ไม่พบข้อมูล';
+              const text4 = row[6]?.v || 'ไม่พบข้อมูล';
+              
+                const text5 = row[7]?.v || 'ไม่พบข้อมูล';
+                const text6 = row[8]?.v || 'ไม่พบข้อมูล';
+                const text7 = row[9]?.v || 'ไม่พบข้อมูล';
+                const text8 = row[10]?.v || 'ไม่พบข้อมูล';
+                
+                const text9 = row[11]?.v || 'ไม่พบข้อมูล';
+                const text10 = row[12]?.v || 'ไม่พบข้อมูล';
+                const text11 = row[13]?.v || 'ไม่พบข้อมูล';
+                const text12 = row[14]?.v || 'ไม่พบข้อมูล';
+                
+                const text13 = row[15]?.v || 'ไม่พบข้อมูล';
+                const text14 = row[16]?.v || 'ไม่พบข้อมูล';
+                const text15 = row[17]?.v || 'ไม่พบข้อมูล';
+                const text16 = row[18]?.v || 'ไม่พบข้อมูล';
+                
+                const text17 = row[19]?.v || 'ไม่พบข้อมูล';
+                const text18 = row[20]?.v || 'ไม่พบข้อมูล';
+                const text19 = row[21]?.v || 'ไม่พบข้อมูล';
+                const text20 = row[22]?.v || 'ไม่พบข้อมูล'
+              
+              document.getElementById("infoBox2").innerText = text1;
+              document.getElementById("infoBox3").innerText = text2;
+              document.getElementById("infoBox4").innerText = text3;
+              document.getElementById("infoBox5").innerText = text4;
+              
+                document.getElementById("infoBox6").innerText = text5;
+                document.getElementById("infoBox7").innerText = text6;
+                document.getElementById("infoBox8").innerText = text7;
+                document.getElementById("infoBox9").innerText = text8;
+                
+                document.getElementById("infoBox10").innerText = text9;
+                document.getElementById("infoBox11").innerText = text10;
+                document.getElementById("infoBox12").innerText = text11;
+                document.getElementById("infoBox13").innerText = text12;
+                
+                document.getElementById("infoBox14").innerText = text13;
+                document.getElementById("infoBox15").innerText = text14;
+                document.getElementById("infoBox16").innerText = text15;
+                document.getElementById("infoBox17").innerText = text16;
+                
+                document.getElementById("infoBox18").innerText = text17;
+                document.getElementById("infoBox19").innerText = text18;
+                document.getElementById("infoBox20").innerText = text19;
+                document.getElementById("infoBox21").innerText = text20;
+                          
+              break;
+            }
+          }
+        })
+        .catch(err => console.error("❌ Error loading Google Sheet:", err));
+    }
+
+    client.init('7adcd28260174cf58dd2672e1e189426', {
+      success: function(api) {
+        api.start();
+        api.addEventListener('viewerready', function() {
+          api.addEventListener('annotationFocus', function(index) {
+            api.getAnnotation(index, function(err, annotation) {
+              if (!err && annotation?.name) {
+                const CameraName = annotation.name;
+                document.getElementById('cameraNameBox').innerText = 'ชั้น ' + CameraName;
+                getTextFromGoogleSheet(CameraName);
+              }
+            });
+          });
+        });
+      },
+      error: function() {
+        console.error('❌ โหลด Sketchfab API ไม่ได้');
+      }
+    });
+  </script>
+
 </body>
 </html>
-
-
-
