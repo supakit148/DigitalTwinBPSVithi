@@ -1,173 +1,281 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>Smart City Dashboard</title>
-  <script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
+<meta charset="UTF-8" />
+<title>Smart City Dashboard</title>
+<script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.0.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {
+box-sizing: border-box;
+}
+
+html, body {
+margin: 0;
+padding: 0;
+height: 100%;
+font-family: 'Orbitron', sans-serif;
+background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+color: #00ffff;
+overflow: hidden;
+}
+
+.container {
+display: flex;
+height: 100vh;
+}
+
+.left-pane {
+flex: 7.5;
+position: relative;
+background-color: #000;
+border-right: 2px solid rgba(0, 255, 255, 0.2);
+box-shadow: inset 0 0 30px #00eaff55;
+}
+
+.right-pane {
+flex: 2;
+padding: 18px;
+background: radial-gradient(circle, #0a1e2f, #06121f);
+overflow-y: auto;
+color: #c5faff;
+}
+
+#skfb-frame {
+width: 100%;
+height: 100%;
+border: none;
+filter: drop-shadow(0 0 20px #00eaff);
+}
+
+.camera-section {
+margin-bottom: 12px;
+padding-bottom: 10px;
+border-bottom: 1px dashed rgba(0, 255, 255, 0.1);
+}
+
+.camera-title {
+font-size: 18px;
+font-weight: bold;
+color: #00ffff;
+margin-bottom: 5px;
+border-left: 4px solid #00eaff;
+padding-left: 8px;
+}
+
+.camera-image img {
+display: block; 
+margin-left: auto; /
+margin-right: auto;
+width: 100%;
+height: auto;
+border-radius: 8px;
+border: 1px solid #00eaff;
+box-shadow: 0 0 12px #00eaff66;
+margin-bottom: 8px;
+transition: transform 0.3s ease;
+}
+
+.camera-image img:hover {
+transform: scale(1.03);
+}
+
+.camera-detail {
+font-size: 14px;
+background-color: rgba(0, 255, 255, 0.05);
+border-left: 3px solid #00ffff;
+padding: 10px;
+border-radius: 5px;
+line-height: 1.4;
+box-shadow: 0 0 8px #00c8ff44;
+margin-bottom: 5px;
+}
+
+ .card {
+      background: rgba(20, 20, 20, 0.6); /* พื้นเข้มโปร่งใส */
+      backdrop-filter: blur(12px);       /* เบลอพื้นหลัง มัวๆ */
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;               /* มุมโค้งมน */
+      border: 1px solid rgba(255, 255, 255, 0.08); /* ขอบโปร่งบางๆ */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);   /* เงานุ่มลึก */
+      padding: 16px;
+      color: #e0e0e0;                    /* ตัวอักษรสีเทาอ่อน อ่านง่ายบนพื้นเข้ม */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* ใส่ effect ตอน hover ให้ล้ำขึ้น */
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #00ffff55, #00000022);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    h2, h3 {
+      text-shadow: var(--neon);
+      font-size: 18px;
+    }
+
+    .electrical-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;             /* ✅ เพิ่มความห่างระหว่างช่อง */
+      width: 100%;
       box-sizing: border-box;
     }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #00ffff;
-      overflow: hidden;
-    }
-
-    .container {
+    .electrical-grid .metric {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 8px;
+      text-align: center;
+      min-width: 100px;
+      min-height: 80px; /* ✅ เพิ่มความสูงขั้นต่ำ */
       display: flex;
-      height: 100vh;
+      flex-direction: column;
+      justify-content: center;   /* ✅ จัดให้อยู่ตรงกลาง */
+      box-shadow: 0 0 10px #0ff4, inset 0 0 8px rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s ease;
     }
-
-    .left-pane {
-      flex: 7.5;
-      position: relative;
-      background-color: #000;
-      border-right: 2px solid rgba(0, 255, 255, 0.2);
-      box-shadow: inset 0 0 30px #00eaff55;
-    }
-
-    .right-pane {
-      flex: 2;
-      padding: 18px;
-      background: radial-gradient(circle, #0a1e2f, #06121f);
-      overflow-y: auto;
-      color: #c5faff;
-    }
-
-    #skfb-frame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      filter: drop-shadow(0 0 20px #00eaff);
-    }
-
-    .camera-section {
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed rgba(0, 255, 255, 0.1);
-    }
-
-    .camera-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #00ffff;
-      margin-bottom: 5px;
-      border-left: 4px solid #00eaff;
-      padding-left: 8px;
-    }
-
-    .camera-image img {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 1px solid #00eaff;
-      box-shadow: 0 0 12px #00eaff66;
-      margin-bottom: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .camera-image img:hover {
+    .electrical-grid .metric:hover {
       transform: scale(1.03);
     }
 
-    .camera-detail {
-      font-size: 14px;
-      background-color: rgba(0, 255, 255, 0.05);
-      border-left: 3px solid #00ffff;
-      padding: 10px;
-      border-radius: 5px;
-      line-height: 1.4;
-      box-shadow: 0 0 8px #00c8ff44;
-      margin-bottom: 5px;
+    .electrical-grid .metric strong {
+      font-size: 13px;               /* ✅ ลดขนาด font นิดหน่อย */
+      white-space: nowrap;           /* ✅ ไม่ให้พับ */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      margin-bottom: 6px;
+      color: #0ff;
     }
-  </style>
+
+    .electrical-grid .metric div {
+      font-size: 20px;
+      font-weight: 600;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      font-variant-numeric: tabular-nums;
+    }
+
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="left-pane">
-      <iframe id="skfb-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
-    </div>
+<div class="container">
+<div class="left-pane">
+<iframe id="skfb-frame" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+</div>
 
-    <div class="right-pane">
-      <div class="camera-section">
-        <div class="camera-title" id="cameraNameBox">📷 รอกด Annotation กล้อง...</div>
-        <div class="camera-image" id="infoBox">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
-        <div class="camera-detail" id="infoBox2">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
-        <div class="camera-detail" id="infoBox3">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
-        <div class="camera-detail" id="infoBox4">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
-        <div class="camera-detail" id="infoBox5">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
+<div class="right-pane">
+<div class="camera-section">
+    
+<div class="camera-title" id="cameraNameBox">📷 รอกด Annotation กล้อง...</div>
+<div class="camera-image" id="infoBox">ℹ️ ข้อมูลจาก Google Sheet จะแสดงตรงนี้</div>
+
+      <div class="card">
+        <h3>
+          <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
+            <path d="M2 4h20v2H2V4zm2 4h16v3l3 3v2H1v-2l3-3V8zm2 2v2h12v-2H6zm1 6h10v2H7v-2z"/>
+          </svg> CCTV Security<br></br>
+        </h3>
+          <div class="electrical-grid">
+            <div class="metric">
+              <strong style="color: #0ff;">Offline</strong>
+              <div id="infoBox2">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Intruder</strong>
+              <div id="infoBox3">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Online</strong>
+              <div id="infoBox4">0</div>
+            </div>
+            <div class="metric">
+              <strong style="color: #0ff;">Total</strong>
+              <div id="infoBox5">0</div>
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
 
-  <script>
-    const iframe = document.getElementById('skfb-frame');
-    const client = new Sketchfab(iframe);
-    let CameraName = '';
+</div>
+</div>
+</div>
 
-    function getTextFromGoogleSheet(cameraId) {
-      const sheetID = "1pG8ldAgtHsOzlVxjITuBp2XCS77Sdk15fvmR-YU-MDg";
-      const sheetName = "Data";
-      const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+<script>
+const iframe = document.getElementById('skfb-frame');
+const client = new Sketchfab(iframe);
+let CameraName = '';
 
-      fetch(url)
-        .then(res => res.text())
-        .then(data => {
-          const jsonData = JSON.parse(data.substr(47).slice(0, -2));
-          const rows = jsonData.table.rows;
+function getTextFromGoogleSheet(cameraId) {
+const sheetID = "1pG8ldAgtHsOzlVxjITuBp2XCS77Sdk15fvmR-YU-MDg";
+const sheetName = "Data";
+const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
-          for (let i = 0; i < rows.length; i++) {
-            const row = rows[i].c;
-            if (row[0] && row[0].v === cameraId) {
-              // กล้อง 1
-              const img1 = row[2]?.v || 'ไม่พบข้อมูล';
-              const text1 = row[3]?.v || 'ไม่พบข้อมูล';
-              const text2 = row[4]?.v || 'ไม่พบข้อมูล';
-              const text3 = row[5]?.v || 'ไม่พบข้อมูล';
-              const text4 = row[6]?.v || 'ไม่พบข้อมูล';
+fetch(url)
+.then(res => res.text())
+.then(data => {
+const jsonData = JSON.parse(data.substr(47).slice(0, -2));
+const rows = jsonData.table.rows;
 
-              document.getElementById("infoBox").innerHTML = `<img src="${img1}" alt="ภาพจากกล้อง">`;
-              document.getElementById("infoBox2").innerText = text1;
-              document.getElementById("infoBox3").innerText = text2;
-              document.getElementById("infoBox4").innerText = text3;
-              document.getElementById("infoBox5").innerText = text4;
+for (let i = 0; i < rows.length; i++) {
+const row = rows[i].c;
+if (row[0] && row[0].v === cameraId) {
+// กล้อง 1
+const img1 = row[2]?.v || 'ไม่พบข้อมูล';
+const text1 = row[3]?.v || 'ไม่พบข้อมูล';
+const text2 = row[4]?.v || 'ไม่พบข้อมูล';
+const text3 = row[5]?.v || 'ไม่พบข้อมูล';
+const text4 = row[6]?.v || 'ไม่พบข้อมูล';
 
-              break;
-            }
-          }
-        })
-        .catch(err => console.error("❌ Error loading Google Sheet:", err));
-    }
+document.getElementById("infoBox").innerHTML = `<img src="${img1}" alt="ภาพจากกล้อง">`;
+document.getElementById("infoBox2").innerText = text1;
+document.getElementById("infoBox3").innerText = text2;
+document.getElementById("infoBox4").innerText = text3;
+document.getElementById("infoBox5").innerText = text4;
 
-    client.init('7adcd28260174cf58dd2672e1e189426', {
-      success: function (api) {
-        api.start();
-        api.addEventListener('viewerready', function () {
-          api.addEventListener('annotationFocus', function (index) {
-            api.getAnnotation(index, function (err, annotation) {
-              if (!err && annotation?.name) {
-                CameraName = annotation.name;
-                document.getElementById('cameraNameBox').innerText = 'ชั้น ' + CameraName;
-                getTextFromGoogleSheet(CameraName);
-              }
-            });
-          });
-        });
-      },
-      error: function () {
-        console.error('❌ โหลด Sketchfab API ไม่ได้');
-      }
-    });
-  </script>
+break;
+}
+}
+})
+.catch(err => console.error("❌ Error loading Google Sheet:", err));
+}
+
+client.init('7adcd28260174cf58dd2672e1e189426', {
+success: function (api) {
+api.start();
+api.addEventListener('viewerready', function () {
+api.addEventListener('annotationFocus', function (index) {
+api.getAnnotation(index, function (err, annotation) {
+if (!err && annotation?.name) {
+CameraName = annotation.name;
+document.getElementById('cameraNameBox').innerText = 'ชั้น ' + CameraName;
+getTextFromGoogleSheet(CameraName);
+}
+});
+});
+});
+},
+error: function () {
+console.error('❌ โหลด Sketchfab API ไม่ได้');
+}
+});
+</script>
 </body>
 </html>
+
+
