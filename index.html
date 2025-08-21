@@ -68,7 +68,7 @@
 
     .top-right {
       position: absolute;
-      right: 70px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -149,7 +149,7 @@
 
     .left, .right {
       position: absolute;
-      top: 64px;
+      top: 35px;
       width: 320px;
       height: calc(100vh - 64px);
       /* ทำให้โปร่งใส/ไม่มีพื้นและเงาขอบ */
@@ -160,12 +160,12 @@
 
       padding: 20px;
       z-index: 2;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
 
     /* ตำแหน่งซ้าย/ขวา */
     .left { left: 0; }
-    .right { right: 60px; }
+    .right { right: -20px; }
 
 
     .card {
@@ -490,8 +490,7 @@
 
 
     <div class="left">
-      <h3 >Digital Building</h3>
-      <h3 id="cameraNameBox">- Floor</h3>
+        <h3 id="cameraNameBox">Digital Building</h3>
       <div class="card">
         <h3>
           <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
@@ -1100,6 +1099,12 @@
   <script>
     const iframe = document.getElementById('skfb-frame');
     const client = new Sketchfab(iframe);
+    
+    function formatCeil2(num) {
+        const n = parseFloat(num);
+        if (isNaN(n)) return num; // ถ้าไม่ใช่ตัวเลข คืนค่าเดิม
+        return Math.ceil(n * 100) / 100;
+    }
 
     function getTextFromGoogleSheet(cameraId) {
       const sheetID = "1pG8ldAgtHsOzlVxjITuBp2XCS77Sdk15fvmR-YU-MDg";
@@ -1116,55 +1121,56 @@
             const row = rows[i].c;
             if (row[0] && row[0].v === cameraId) {
                 
-              const text1 = row[3]?.v || 'ไม่พบข้อมูล';
-              const text2 = row[4]?.v || 'ไม่พบข้อมูล';
-              const text3 = row[5]?.v || 'ไม่พบข้อมูล';
-              const text4 = row[6]?.v || 'ไม่พบข้อมูล';
+              const text1 = row[3]?.v ?? 'ไม่พบข้อมูล';
+              const text2 = row[4]?.v ?? 'ไม่พบข้อมูล';
+              const text3 = row[5]?.v ?? 'ไม่พบข้อมูล';
+              const text4 = row[6]?.v ?? 'ไม่พบข้อมูล';
               
-                const text5 = row[7]?.v || 'ไม่พบข้อมูล';
-                const text6 = row[8]?.v || 'ไม่พบข้อมูล';
-                const text7 = row[9]?.v || 'ไม่พบข้อมูล';
-                const text8 = row[10]?.v || 'ไม่พบข้อมูล';
+                const text5 = row[7]?.v ?? 'ไม่พบข้อมูล';
+                const text6 = row[8]?.v ?? 'ไม่พบข้อมูล';
+                const text7 = row[9]?.v ?? 'ไม่พบข้อมูล';
+                const text8 = row[10]?.v ?? 'ไม่พบข้อมูล';
                 
-                const text9 = row[11]?.v || 'ไม่พบข้อมูล';
-                const text10 = row[12]?.v || 'ไม่พบข้อมูล';
-                const text11 = row[13]?.v || 'ไม่พบข้อมูล';
-                const text12 = row[14]?.v || 'ไม่พบข้อมูล';
+                const text9 = row[11]?.v ?? 'ไม่พบข้อมูล';
+                const text10 = row[12]?.v ?? 'ไม่พบข้อมูล';
+                const text11 = row[13]?.v ?? 'ไม่พบข้อมูล';
+                const text12 = row[14]?.v ?? 'ไม่พบข้อมูล';
                 
-                const text13 = row[15]?.v || 'ไม่พบข้อมูล';
-                const text14 = row[16]?.v || 'ไม่พบข้อมูล';
-                const text15 = row[17]?.v || 'ไม่พบข้อมูล';
-                const text16 = row[18]?.v || 'ไม่พบข้อมูล';
+                const text13 = row[15]?.v ?? 'ไม่พบข้อมูล';
+                const text14 = row[16]?.v ?? 'ไม่พบข้อมูล';
+                const text15 = row[17]?.v ?? 'ไม่พบข้อมูล';
+                const text16 = row[18]?.v ?? 'ไม่พบข้อมูล';
                 
-                const text17 = row[19]?.v || 'ไม่พบข้อมูล';
-                const text18 = row[20]?.v || 'ไม่พบข้อมูล';
-                const text19 = row[21]?.v || 'ไม่พบข้อมูล';
-                const text20 = row[22]?.v || 'ไม่พบข้อมูล'
+                const text17 = row[19]?.v ?? 'ไม่พบข้อมูล';
+                const text18 = row[20]?.v ?? 'ไม่พบข้อมูล';
+                const text19 = row[21]?.v ?? 'ไม่พบข้อมูล';
+                const text20 = row[22]?.v ?? 'ไม่พบข้อมูล';
               
-              document.getElementById("infoBox2").innerText = text1;
-              document.getElementById("infoBox3").innerText = text2;
-              document.getElementById("infoBox4").innerText = text3;
-              document.getElementById("infoBox5").innerText = text4;
-              
-                document.getElementById("infoBox6").innerText = text5;
-                document.getElementById("infoBox7").innerText = text6;
-                document.getElementById("infoBox8").innerText = text7;
-                document.getElementById("infoBox9").innerText = text8;
+              document.getElementById("infoBox2").innerHTML = text1;
+              document.getElementById("infoBox3").innerHTML = text2;
+              document.getElementById("infoBox4").innerHTML = text3;
+              document.getElementById("infoBox5").innerHTML = text4;
+             
                 
-                document.getElementById("infoBox10").innerText = text9;
-                document.getElementById("infoBox11").innerText = text10;
-                document.getElementById("infoBox12").innerText = text11;
-                document.getElementById("infoBox13").innerText = text12;
+                document.getElementById("infoBox6").innerHTML  = formatCeil2(text5)  + "V";
+                document.getElementById("infoBox7").innerHTML  = formatCeil2(text6)  + "A";
+                document.getElementById("infoBox8").innerHTML  = formatCeil2(text7)  + "kW";
+                document.getElementById("infoBox9").innerHTML  = formatCeil2(text8)  + "Hz";
                 
-                document.getElementById("infoBox14").innerText = text13;
-                document.getElementById("infoBox15").innerText = text14;
-                document.getElementById("infoBox16").innerText = text15;
-                document.getElementById("infoBox17").innerText = text16;
+                document.getElementById("infoBox10").innerHTML = formatCeil2(text9)  + "<br>L/min";
+                document.getElementById("infoBox11").innerHTML = formatCeil2(text10) + "<br>Liter";
+                document.getElementById("infoBox12").innerHTML = formatCeil2(text11) + "<br>Days";
+                document.getElementById("infoBox13").innerHTML = formatCeil2(text12) + "<br>Months";
                 
-                document.getElementById("infoBox18").innerText = text17;
-                document.getElementById("infoBox19").innerText = text18;
-                document.getElementById("infoBox20").innerText = text19;
-                document.getElementById("infoBox21").innerText = text20;
+                document.getElementById("infoBox14").innerHTML = formatCeil2(text13) + "<br>C";
+                document.getElementById("infoBox15").innerHTML = formatCeil2(text14) + "<br>%RH";
+                document.getElementById("infoBox16").innerHTML = formatCeil2(text15) + "<br>ug";
+                document.getElementById("infoBox17").innerHTML = formatCeil2(text16) + "<br>ug";
+                
+                document.getElementById("infoBox18").innerHTML = formatCeil2(text17) + "<br>ug";
+                document.getElementById("infoBox19").innerHTML = formatCeil2(text18) + "<br>ug";
+                document.getElementById("infoBox20").innerHTML = formatCeil2(text19) + "<br>ppm";
+                document.getElementById("infoBox21").innerHTML = formatCeil2(text20) + "<br>ppm";
                           
               break;
             }
@@ -1181,7 +1187,7 @@
             api.getAnnotation(index, function(err, annotation) {
               if (!err && annotation?.name) {
                 const CameraName = annotation.name;
-                document.getElementById('cameraNameBox').innerText = 'ชั้น ' + CameraName;
+                document.getElementById('cameraNameBox').innerText = "Digital Building - " + CameraName;
                 getTextFromGoogleSheet(CameraName);
               }
             });
