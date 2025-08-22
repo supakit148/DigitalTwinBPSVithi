@@ -403,6 +403,23 @@
       width: 100%;
       animation: scroll-up-down 120s ease-in-out infinite;
     }
+    
+    .camera-image img {
+        display: block; 
+        margin-left: auto; 
+        margin-right: auto;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #00eaff;
+        box-shadow: 0 0 12px #00eaff66;
+        margin-bottom: 8px;
+        transition: transform 0.3s ease;
+    }
+    
+    .camera-image img:hover {
+        transform: scale(1.03);
+    }
 
     @keyframes scroll-up-down {
       0%   { transform: translateY(0); }
@@ -490,7 +507,10 @@
 
 
     <div class="left">
+      <div class="card">
         <h3 id="cameraNameBox">Digital Building</h3>
+        <div class="camera-image" id="infoBox">-</div>
+      </div>
       <div class="card">
         <h3>
           <svg width="20" height="20" fill="#0ff" viewBox="0 0 24 24">
@@ -1121,6 +1141,8 @@
             const row = rows[i].c;
             if (row[0] && row[0].v === cameraId) {
                 
+              const img1 = row[2]?.v ?? 'ไม่พบข้อมูล';
+                
               const text1 = row[3]?.v ?? 'ไม่พบข้อมูล';
               const text2 = row[4]?.v ?? 'ไม่พบข้อมูล';
               const text3 = row[5]?.v ?? 'ไม่พบข้อมูล';
@@ -1145,6 +1167,8 @@
                 const text18 = row[20]?.v ?? 'ไม่พบข้อมูล';
                 const text19 = row[21]?.v ?? 'ไม่พบข้อมูล';
                 const text20 = row[22]?.v ?? 'ไม่พบข้อมูล';
+                
+              document.getElementById("infoBox").innerHTML = `<img src="${img1}" alt="ภาพจากกล้อง">`;
               
               document.getElementById("infoBox2").innerHTML = text1;
               document.getElementById("infoBox3").innerHTML = text2;
@@ -1202,4 +1226,3 @@
 
 </body>
 </html>
-
