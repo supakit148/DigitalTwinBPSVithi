@@ -2862,8 +2862,8 @@ body.modal-open {
               // ---- พฤติกรรม "เดิม" ของคุณ: อัปเดตชื่อ/ข้อมูลจาก Google Sheet ----
               const CameraName = (ann.name || ann.title || '').trim();
               renderFloorMapFromSheet(CameraName, /* activeName */ CameraName);
-              document.getElementById('cameraNameBox1').innerText = "Digital Building - " + CameraName;
-              document.getElementById('cameraNameBox2').innerText = "Digital Building - " + CameraName;
+              document.getElementById('cameraNameBox1').innerText = "VITHI-Wellbeing Home";
+              document.getElementById('cameraNameBox2').innerText = "VITHI-Wellbeing Home";
 
               // โหลดข้อมูลแผ่น/การ์ด/ค่า metric ตามชื่อ CameraName (ฟังก์ชันเดิมของคุณ)
               getTextFromGoogleSheet(CameraName);
@@ -4574,6 +4574,7 @@ function runDemo(){
 
 </body>
 </html>
+
 
 
 
