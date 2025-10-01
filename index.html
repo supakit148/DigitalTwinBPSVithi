@@ -33,10 +33,22 @@
       min-height: 100vh;  /* ✅ ครอบเต็ม viewport */
       width: 100%;
       overflow: hidden;
+      width: 100%;
+      height: 100%;
       background: #000;
       font-family: 'Orbitron', sans-serif;
       font-variant-numeric: tabular-nums; /* ✅ เพิ่มบรรทัดนี้ */
       color: var(--text);
+    }
+    
+    .container, .dashboard {
+      max-width: 100%;
+      overflow: hidden;
+    }
+    
+    canvas {
+      max-width: 100% !important;
+      height: auto !important;
     }
 
     .layout {
@@ -1297,6 +1309,22 @@ body.modal-open {
 .menu-buttons .dropdown { position: relative; z-index: 10010; }
 .menu-buttons .dd-menu   { position: absolute; z-index: 10020; }
 
+/* --- ฝั่งหน้าแม่ --- */
+.right .card .mini-embed {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 12px #00ffff55;
+}
+
+.right .card .mini-embed iframe {
+  width: 100%;
+  height: 220px;   /* หรือปรับให้สูงพอดีการ์ด */
+  border: none;
+  display: block;
+}
+
+
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -1462,6 +1490,28 @@ body.modal-open {
     <button role="menuitem" onclick="openDDItem('CapsuleHouse','otherDD')">Capsule House</button>
   </div>
 </div>
+
+<!-- WellBeing -->
+<div class="dropdown" id="WellBeingDD">
+  <button class="dd-toggle" onclick="toggleDD(event, 'WellBeingDD')">
+    Well Being <span class="caret">▾</span>
+  </button>
+  <div class="dd-menu" role="menu" aria-label="WellBeing submenu">
+      
+    <button role="menuitem" onclick="openDDItem('PhysicalActivityFitnessAnalytics','WellBeingDD')">Physical Activity Fitness Analytics</button>
+    
+    <button role="menuitem" onclick="openDDItem('NutritionDietaryInsight','WellBeingDD')">Nutrition Dietary Insight</button>
+    
+    <button role="menuitem" onclick="openDDItem('SleepQualityCircadianHealth','WellBeingDD')">SleepQuality Circadian Health</button>
+    
+    <button role="menuitem" onclick="openDDItem('SubstanceUseMonitoring','WellBeingDD')">Substance Use Monitoring</button>
+    
+    <button role="menuitem" onclick="openDDItem('StressCognitiveLoadMonitoring','WellBeingDD')">Stress Cognitive Load Monitoring</button>
+    
+    <button role="menuitem" onclick="openDDItem('SocialWellbeingCommunityEngagement','WellBeingDD')">Social Wellbeing Community Engagement</button>
+    
+  </div>
+</div>
           
       
       </div>
@@ -1547,18 +1597,8 @@ body.modal-open {
         <button onclick="openLogistics('OFFICE_MAP')">Office Map</button><br></br>
 
       </div>
-      <h3>Well Building</h3>
       <div class="scrolling-wrapper">
       <div class="scrolling-content-left">
-          
-      <div class="card"><h3>Indoor Air Quality</h3></div>
-      <div class="card"><h3>Water Quality & Safety</h3></div>
-      <div class="card"><h3>Utilities & Energy Systems</h3></div>
-      <div class="card"><h3>Lighting Performance / Circadian Lighting</h3></div>
-      <div class="card"><h3>Active Design & Movement Tracking</h3></div>
-      <div class="card"><h3>Environmental Comfort & Acoustic Contro</h3></div>
-      <div class="card"><h3>Mental Well-being & Biophilic Design</h3></div>
-          
       <div class="card">
         <h3> 
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1776,17 +1816,8 @@ body.modal-open {
     </div>
 
     <div class="right">
-    <br></br><h3>Well Being</h3>
     <div class="scrolling-wrapper">
       <div class="scrolling-content">
-          
-        <div class="card"><h3>Physical Activity & Fitness Analytics</h3></div>
-        <div class="card"><h3>Nutrition & Dietary Insight</h3></div>
-        <div class="card"><h3>Sleep Quality & Circadian Health</h3></div>
-        <div class="card"><h3>Substance Use Monitoring / Safety Policy</h3></div>
-        <div class="card"><h3>Stress & Cognitive Load Monitoring</h3></div>
-        <div class="card"><h3>Social Well-being & Community Engagement</h3></div>
-          
         <div class="card">
           <h3>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1990,8 +2021,44 @@ body.modal-open {
       <h3>Entry - 90P | Exit - 90P</h3>
       <button class="close-btn" onclick="closeLogistics('CCTV')">❌</button>
     </div>
+    
+  <div id="PhysicalActivityFitnessAnalytics" class="glass-modal">
+    <iframe src="https://supakit148.github.io/PhysicalActivityFitnessAnalytics/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('PhysicalActivityFitnessAnalytics')">❌</button>
+  </div>
   
+  <div id="NutritionDietaryInsight" class="glass-modal">
+    <iframe src="https://supakit148.github.io/NutritionDietaryInsight/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('NutritionDietaryInsight')">❌</button>
+  </div>
   
+  <div id="SleepQualityCircadianHealth" class="glass-modal">
+    <iframe src="https://supakit148.github.io/SleepQualityCircadianHealth/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('SleepQualityCircadianHealth')">❌</button>
+  </div>
+  
+  <div id="SubstanceUseMonitoring" class="glass-modal">
+    <iframe src="https://supakit148.github.io/SubstanceUseMonitoring/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('SubstanceUseMonitoring')">❌</button>
+  </div>
+  
+  <div id="StressCognitiveLoadMonitoring" class="glass-modal">
+    <iframe src="https://supakit148.github.io/StressCognitiveLoadMonitoring/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('StressCognitiveLoadMonitoring')">❌</button>
+  </div>
+  
+  <div id="SocialWellbeingCommunityEngagement" class="glass-modal">
+    <iframe src="https://supakit148.github.io/SocialWellbeingCommunityEngagement/"
+            style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
+    <button class="close-btn" onclick="closeLogistics('SocialWellbeingCommunityEngagement')">❌</button>
+  </div>
+  
+ 
   <div id="BUILDING_OVERVIEW" class="glass-modal">
     <iframe src="https://supakit148.github.io/BUILDING-OVERVIEW/"
             style="width:100%; height:100%; border:none; border-radius: 16px;"></iframe>
@@ -4109,6 +4176,9 @@ function openAndHighlight(modalId) {
 
 /* ==== Map: หน้าไหนอยู่หัวข้อใด ==== */
 const modalGroupMap = {
+
+    
+    
   // CCTV
   'CCTVSecurity': 'cctvDropdown',
   'CCTV-HQ': 'cctvDropdown',
