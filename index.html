@@ -1512,6 +1512,45 @@ body.modal-open {
     
   </div>
 </div>
+
+<!-- WellBuilding -->
+<div class="dropdown" id="WellBuildingDD">
+  <button class="dd-toggle" onclick="toggleDD(event, 'WellBuildingDD')">
+    Well Building <span class="caret">▾</span>
+  </button>
+  <div class="dd-menu" role="menu" aria-label="WellBuilding submenu">
+
+    <button role="menuitem" onclick="openDDItem('MentalWellbeingBiophilicDesign','WellBuildingDD')">
+      MentalWellbeingBiophilicDesign
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('EnvironmentalComfortAcousticControl','WellBuildingDD')">
+      EnvironmentalComfortAcousticControl
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('ActiveDesignMovementTracking','WellBuildingDD')">
+      ActiveDesignMovementTracking
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('LightingPerformance','WellBuildingDD')">
+      LightingPerformance
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('UtilitiesEnergySystems','WellBuildingDD')">
+      UtilitiesEnergySystems
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('WaterQualitySafety','WellBuildingDD')">
+      WaterQualitySafety
+    </button>
+
+    <button role="menuitem" onclick="openDDItem('IndoorAirQuality','WellBuildingDD')">
+      IndoorAirQuality
+    </button>
+
+  </div>
+</div>
+
           
       
       </div>
@@ -2021,6 +2060,57 @@ body.modal-open {
       <h3>Entry - 90P | Exit - 90P</h3>
       <button class="close-btn" onclick="closeLogistics('CCTV')">❌</button>
     </div>
+    
+<!-- MentalWellbeingBiophilicDesign -->
+<div id="MentalWellbeingBiophilicDesign" class="glass-modal">
+  <iframe src="https://supakit148.github.io/MentalWellbeingBiophilicDesign/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('MentalWellbeingBiophilicDesign')">❌</button>
+</div>
+
+<!-- EnvironmentalComfortAcousticControl -->
+<div id="EnvironmentalComfortAcousticControl" class="glass-modal">
+  <iframe src="https://supakit148.github.io/EnvironmentalComfortAcousticControl/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('EnvironmentalComfortAcousticControl')">❌</button>
+</div>
+
+<!-- ActiveDesignMovementTracking -->
+<div id="ActiveDesignMovementTracking" class="glass-modal">
+  <iframe src="https://supakit148.github.io/ActiveDesignMovementTracking/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('ActiveDesignMovementTracking')">❌</button>
+</div>
+
+<!-- LightingPerformance -->
+<div id="LightingPerformance" class="glass-modal">
+  <iframe src="https://supakit148.github.io/LightingPerformance/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('LightingPerformance')">❌</button>
+</div>
+
+<!-- UtilitiesEnergySystems -->
+<div id="UtilitiesEnergySystems" class="glass-modal">
+  <iframe src="https://supakit148.github.io/UtilitiesEnergySystems/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('UtilitiesEnergySystems')">❌</button>
+</div>
+
+<!-- WaterQualitySafety -->
+<div id="WaterQualitySafety" class="glass-modal">
+  <iframe src="https://supakit148.github.io/WaterQualitySafety/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('WaterQualitySafety')">❌</button>
+</div>
+
+<!-- IndoorAirQuality -->
+<div id="IndoorAirQuality" class="glass-modal">
+  <iframe src="https://supakit148.github.io/IndoorAirQuality/"
+          style="width:100%; height:100%; border:none; border-radius:16px;"></iframe>
+  <button class="close-btn" onclick="closeLogistics('IndoorAirQuality')">❌</button>
+</div>
+
+    
     
   <div id="PhysicalActivityFitnessAnalytics" class="glass-modal">
     <iframe src="https://supakit148.github.io/PhysicalActivityFitnessAnalytics/"
@@ -4665,7 +4755,6 @@ function runDemo(){
 
 </body>
 </html>
-
 
 
 
